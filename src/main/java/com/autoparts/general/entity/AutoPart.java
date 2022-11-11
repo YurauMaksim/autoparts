@@ -3,10 +3,31 @@ package com.autoparts.general.entity;
 import java.math.BigDecimal;
 
 public class AutoPart {
+
+    private int id;
     private String name;
     private String code;
     private String image;
     private BigDecimal price;
+
+    public AutoPart() {
+    }
+
+    public AutoPart(int id, String name, String code, String image, BigDecimal price) {
+        this.id = id;
+        this.name = name;
+        this.code = code;
+        this.image = image;
+        this.price = price;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

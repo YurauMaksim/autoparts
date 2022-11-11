@@ -2,6 +2,8 @@ package com.autoparts.general.controller;
 
 
 import com.autoparts.general.entity.User;
+import com.autoparts.general.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,18 +17,17 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    private List<User> users;
 
-    @PostConstruct
-    private void loadData(){
-        User user = new User();
-        users = new ArrayList<>();
-        users.add(user);
+    private UserService userService;
 
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/list")
     public String listUsers(Model model){
+        List<User> users = userService.findAll();
         model.addAttribute("users", users);
         return "list-users";
     }
