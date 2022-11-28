@@ -1,73 +1,35 @@
 package com.autoparts.general.entity;
 
-import java.math.BigDecimal;
+import lombok.*;
 
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.List;
+
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "autoparts")
 public class AutoPart {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
     private String name;
     private String code;
     private String image;
     private BigDecimal price;
+    @ManyToMany
+    @JoinTable(
+            name = "parts_cars",
+            joinColumns = @JoinColumn(name = "autopart_id"),
+            inverseJoinColumns = @JoinColumn(name = "car_id")
+    )
+    private List<Car> appropriateCars;
 
-    public AutoPart() {
-    }
-
-    public AutoPart(int id, String name, String code, String image, BigDecimal price) {
-        this.id = id;
-        this.name = name;
-        this.code = code;
-        this.image = image;
-        this.price = price;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    @Override
-    public String toString() {
-        return "AutoPart{" +
-                "name='" + name + '\'' +
-                ", code='" + code + '\'' +
-                ", image='" + image + '\'' +
-                ", price=" + price +
-                '}';
-    }
+    
 }
