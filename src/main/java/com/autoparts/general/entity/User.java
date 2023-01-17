@@ -39,14 +39,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name="role")
     private Role role;
-    @OneToMany(mappedBy = "user",
-        cascade =
-            {CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH})
-    @Column(name = "car_id")
-    private List<Car> cars;
 
 
     public User() {

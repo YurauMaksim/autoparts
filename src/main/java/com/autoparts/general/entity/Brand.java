@@ -1,5 +1,9 @@
 package com.autoparts.general.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,23 +16,19 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "brand")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Brand {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @JsonIgnore
     private int id;
     @Column(name = "brand_name")
+    @JsonSetter("id")
     private String brandName;
 
-    @OneToMany(mappedBy = "brand",
-        cascade =
-            {
-            CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH})
-    @Column(name = "car_id")
-    private List<Car> cars;
-
+    public Brand(String brandName) {
+        this.brandName = brandName;
+    }
 }
